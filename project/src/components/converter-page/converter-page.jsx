@@ -4,32 +4,15 @@ import UserBlock from '../user-block/user-block';
 import Social from '../social/social';
 import Converter from '../converter/converter';
 import ConverterHistory from '../converter-history/converter-history';
+import MainNavigation from '../main-navigation/main-navigation';
 
 function ConverterPage() {
   return (
-    <div>
+    <>
       <header className="header">
         <Logo/>
-        <nav className="main-nav">
-          <ul className="main-nav__list">
-            <li className="main-nav__item">
-              <a className="main-nav__link" href="#">Услуги</a>
-            </li>
-            <li className="main-nav__item">
-              <a className="main-nav__link" href="#">Рассчитать кредит</a>
-            </li>
-            <li className="main-nav__item">
-              <a className="main-nav__link main-nav__link--current" href="#">Конвертер валют</a>
-            </li>
-            <li className="main-nav__item">
-              <a className="main-nav__link" href="#">Контакты</a>
-            </li>
-            <li className="main-nav__item">
-              <a className="main-nav__link" href="#">Задать вопрос</a>
-            </li>
-          </ul>
-          <UserBlock/>
-        </nav>
+        <MainNavigation/>
+        <UserBlock/>
       </header>
       <main>
         <div className="promo">
@@ -73,7 +56,7 @@ function ConverterPage() {
         </ul>
         <Social/>
       </footer>
-    </div>
+    </>
   );
 }
 

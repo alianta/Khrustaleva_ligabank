@@ -1,7 +1,11 @@
 .header {
-  font-family: $main-font-family;
+  padding: 6px 98px;
+  display: flex;
+  align-items: center;
+  background-color: $color-gray-1;
 }
 .logo-header {
-  color: $color-orange-3;
+  font-size: 20px;
+  color: $color-blue-1;
   font-family: $second-font-family;
 }

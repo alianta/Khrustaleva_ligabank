@@ -6,3 +6,19 @@
 @import '../logo/logo.scss';
 @import '../social/social.scss';
 @import '../user-block/user-block.scss';
+@import '../main-navigation/main-navigation.scss';
+
+.page, .page__body {
+  height: 100%;
+  font-family: $main-font-family;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+}
+
+.root{
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  min-height: 100%;
+}
