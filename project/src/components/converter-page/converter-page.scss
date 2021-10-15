@@ -1,5 +1,7 @@
-$color-orange-3: #26f226;
-
+.header {
+  font-family: $main-font-family;
+}
 .logo-header {
   color: $color-orange-3;
+  font-family: $second-font-family;
 }
