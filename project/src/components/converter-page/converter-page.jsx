@@ -1,4 +1,5 @@
 import React from 'react';
+import './converter-page.scss';
 
 function ConverterPage() {
   return (
