@@ -7,6 +7,7 @@
 @import '../social/social.scss';
 @import '../user-block/user-block.scss';
 @import '../main-navigation/main-navigation.scss';
+@import '../promo/promo.scss';
 
 .page, .page__body {
   height: 100%;
@@ -21,4 +22,17 @@
   display: grid;
   grid-template-rows: min-content 1fr min-content;
   min-height: 100%;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
