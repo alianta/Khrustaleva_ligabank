@@ -83,14 +83,17 @@
   margin-top: 85px;
 }
 
-.converter__save{
+.button{
   width: 382px;
   height: 60px;
+  font-weight: 500;
   background: $color-blue-1;
   border-radius: 4px;
   color: $color-gray-1;
   font-size: 18px;
   border: none;
-  margin-top: 85px;
-  margin-left: auto;
+  &--save {
+    margin-top: 85px;
+    margin-left: auto;
+  }
 }

@@ -29,7 +29,7 @@ function Converter() {
 
       <label className="visually-hidden" htmlFor="calender">calender</label>
       <input id="calender" className="converter__calender" type="text" name="calender" value="01/12/20 00:00"/>
-      <button className="converter__save" type="submit">Сохранить результат</button>
+      <button className="button button--save" type="submit">Сохранить результат</button>
     </div>
   );
 }
