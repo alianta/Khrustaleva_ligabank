@@ -4,10 +4,11 @@ import Logo from '../logo/logo';
 
 function Footer() {
   return (
-    <footer>
+    <footer className="footer">
       <div className="contacts">
         <Logo/>
-        <p className="address">150015, г. Москва, ул. Московская, д. 32 Генеральная лицензия Банка России №1050 Ⓒ Лига Банк, 2019</p>
+        <p className="contacts__address">150015, г. Москва, ул. Московская, д. 32</p>
+        <p className="contacts__license">Генеральная лицензия Банка России №1050 Ⓒ Лига Банк, 2019</p>
       </div>
       <ul className="nav">
         <li className="nav__item">
@@ -23,16 +24,14 @@ function Footer() {
           <a className="nav__link" href="/">Задать вопрос</a>
         </li>
       </ul>
-      <ul className="phone">
-        <li className="phone__item">
-          <a className="phone__link" href="tel:+0904">*0904</a>
-          <p>Бесплатно для абонентов МТС, Билайн, Мегафон, Теле2</p>
-        </li>
-        <li className="phone__item">
-          <a className="phone__link" href="tel:+88001112223">8 800 111 22 33</a>
-          <p>Бесплатный для всех городов России</p>
-        </li>
-      </ul>
+      <div className="phone phone--mobile">
+        <a className="phone__link" href="tel:+0904">*0904</a>
+        <p className="phone__text" >Бесплатно для абонентов МТС, Билайн, Мегафон, Теле2</p>
+      </div>
+      <div className="phone phone--office">
+        <a className="phone__link" href="tel:+88001112223">8 800 111 22 33</a>
+        <p className="phone__text" >Бесплатный для всех городов России</p>
+      </div>
       <Social/>
     </footer>
   );
