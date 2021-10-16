@@ -60,7 +60,7 @@
 .button {
   &--history{
     width: 198px;
-    height: 51px;
+    min-height: 51px;
     font-size: 16px;
   }
 }
