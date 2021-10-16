@@ -1,6 +1,7 @@
 .converter {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding-bottom: 100px;
 }
 
 .converter__name {
@@ -14,9 +15,14 @@
 }
 
 .converter-money {
+  display: grid;
   border: none;
   padding: 0;
   margin: 0;
+  width: min-content;
+  &--purchased {
+    margin-left: auto;
+  }
 }
 
 .converter-money__label {
@@ -25,10 +31,11 @@
   font-weight: 500;
   font-size: 22px;
   line-height: 31px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .converter-money__input {
+  grid-row-start: 2;
   font-weight: 500;
   font-size: 24px;
   text-align: center;
@@ -44,9 +51,14 @@
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
+  &::placeholder{
+    font-family: $main-font-family;
+    font-size: 24px;
+  }
 }
 
 .currency {
+  grid-row-start: 2;
   width: 120px;
   height: 60px;
   border: 1px solid $color-black-1;
@@ -59,5 +71,26 @@
   background-image: url(../../assets/img/select-arrow.svg);
   background-repeat: no-repeat;
   background-position: center right 15px;
-  padding-right: 17px;
+  padding-right: 26px;
+}
+
+.converter__calender {
+  box-sizing: border-box;
+  width: 390px;
+  height: 60px;
+  border: 1px solid $color-black-1;
+  border-radius: 4px;
+  margin-top: 85px;
+}
+
+.converter__save{
+  width: 382px;
+  height: 60px;
+  background: $color-blue-1;
+  border-radius: 4px;
+  color: $color-gray-1;
+  font-size: 18px;
+  border: none;
+  margin-top: 85px;
+  margin-left: auto;
 }
