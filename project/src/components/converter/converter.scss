@@ -74,13 +74,32 @@
   padding-right: 26px;
 }
 
-.converter__calender {
+.calender__date {
   box-sizing: border-box;
+  background-color: transparent;
   width: 390px;
   height: 60px;
   border: 1px solid $color-black-1;
   border-radius: 4px;
   margin-top: 85px;
+  font-size: 24px;
+  text-align: center;
+  padding-right: 54px;
+  font-family: $main-font-family;
+}
+
+.datePicker {
+  position: relative;
+  &::before {
+    position: absolute;
+    content: '';
+    left: 329px;
+    bottom: 4px;
+    width: 50px;
+    height: 50px;
+    background-image: url(../../assets/img/calendar.svg);
+    background-repeat: no-repeat;
+  }
 }
 
 .button{
