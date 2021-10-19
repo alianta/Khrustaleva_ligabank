@@ -22,6 +22,17 @@
   width: min-content;
   &--purchased {
     margin-left: auto;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: '';
+      width: 55px;
+      height: 36px;
+      bottom: 15px;
+      left: -84px;
+      background-image: url(../../assets/img/arrows.svg);
+    }
   }
 }
 
