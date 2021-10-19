@@ -3,6 +3,9 @@ import DatePicker from 'react-datepicker';
 import {useSelector, useDispatch} from 'react-redux';
 import {getRates} from '../../store/rate-data/selectors';
 import {historyAddItem} from '../../store/action';
+import {fetchRates} from '../../store/api-actions';
+import {ValuteCodes, DEFAULT_CURRENCY, API_KEY} from '../../const';
+import { generateApiParams, currencyConversation } from '../../utils';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const AVALIABLE_MONEY_INPUT_NAME = 'available-money';
@@ -10,12 +13,12 @@ const AVALIABLE_CURRENCY_INPUT_NAME = 'purchased-currency';
 const DEFAULT_AVALIABLE_CYRRENCY = 'RUB';
 const DEFAULT_PURCHASED_CYRRENCY = 'USD';
 
-const currencyConversation=(startValue, startCurrencyRate, endCurrencyRate) => Math.ceil(startValue * startCurrencyRate / endCurrencyRate *10000)/10000;
-
 function Converter() {
   const calenderEndDate = new Date();
-  const calenderStartDate = new Date().setDate(calenderEndDate.getDate()-6);
+  const calenderStartDate = new Date().setDate(calenderEndDate.getDate()-6);//не надо  - будет отталкиваться от календаря
   const rates = useSelector(getRates);
+  const dispatch = useDispatch();
+
   /* eslint-disable no-console */
   console.log('films:',rates);
   if(rates.date){
@@ -27,26 +30,29 @@ function Converter() {
     date: new Date(),
     avaliableMoney: 0,
     purchasedMoney: 0,
-    avaliableCurrency: 'RUB',
-    avaliableCurrencyRate: 1,
-    purchasedCurrency: 'USD',
-    purchasedCurrencyRate: 71.2371,
+    avaliableCurrency: DEFAULT_AVALIABLE_CYRRENCY,
+    avaliableCurrencyRate: 0,//установить начальные значения
+    purchasedCurrency: DEFAULT_PURCHASED_CYRRENCY,
+    purchasedCurrencyRate: 0,//установить начальные значения
   });
 
   const handleCurrencyChange = ({target}) => {
+    const apiParams = generateApiParams(new Date(),DEFAULT_CURRENCY,ValuteCodes.join(),API_KEY);
+    dispatch(fetchRates(apiParams));
+
     if(target.id === AVALIABLE_CURRENCY_INPUT_NAME) {
       setMoney({
         ...money,
         purchasedCurrency: target.value,
-        purchasedCurrencyRate: 50,//подставить значение из справочника
-        purchasedMoney: currencyConversation(money.avaliableMoney,money.avaliableCurrencyRate,50),//подставить значение из справочника вместо 50
+        purchasedCurrencyRate: rates[target.value],
+        purchasedMoney: currencyConversation(money.avaliableMoney,money.avaliableCurrencyRate,rates[target.value]),
       });
     } else {
       setMoney({
         ...money,
         avaliableCurrency: target.value,
-        avaliableCurrencyRate: 30,//подставить значение из справочника
-        avaliableMoney: currencyConversation(money.purchasedMoney, money.purchasedCurrencyRate, 30),//подставить значение из справочника вместо 30
+        avaliableCurrencyRate: rates[target.value],
+        avaliableMoney: currencyConversation(money.purchasedMoney, money.purchasedCurrencyRate, rates[target.value]),
       });
     }
   };
@@ -67,7 +73,6 @@ function Converter() {
     }
   };
 
-  const dispatch = useDispatch();
   const handleHistoryAdd = (evt) => {
     const date = `${money.date.getDate()}.${money.date.getMonth()+1}.${money.date.getFullYear()}`;
     evt.preventDefault();
@@ -80,6 +85,18 @@ function Converter() {
       purchasedCurrency: money.purchasedCurrency,
     };
     dispatch(historyAddItem(historyItem));
+  };
+
+  const handleDateChange = (date) => {
+    const apiParams = generateApiParams(date,DEFAULT_CURRENCY,ValuteCodes.join(),API_KEY);
+    dispatch(fetchRates(apiParams));
+    setMoney({
+      ...money,
+      avaliableCurrencyRate: rates[money.avaliableCurrency],
+      purchasedCurrencyRate: rates[money.purchasedCurrency],
+      purchasedMoney: currencyConversation(money.avaliableMoney,rates[money.avaliableCurrency],rates[money.purchasedCurrency]),
+      date: date,
+    });
   };
 
   return (
@@ -108,9 +125,7 @@ function Converter() {
         </select>
       </fieldset>
 
-      <label className="visually-hidden" htmlFor="calender">calender</label>
       <div className="calender">
-        <p className='calender__information'>Курс на {money.date.toString()}: 1 USD = 1 USD</p>
         <DatePicker
           wrapperClassName="datePicker"
           className="calender__date"
@@ -118,10 +133,7 @@ function Converter() {
           selected={money.date}
           maxDate={calenderEndDate}
           minDate={calenderStartDate}
-          onChange={(date) => setMoney({
-            ...money,
-            date: date,//ещё надо в сменить курсы валют у обоих валют, вяв их из стораджа
-          })}
+          onChange={handleDateChange}
         />
       </div>
       <button className="button button--save" type="submit">Сохранить результат</button>
