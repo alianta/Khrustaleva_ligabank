@@ -4,36 +4,26 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getRates} from '../../store/rate-data/selectors';
 import {historyAddItem} from '../../store/action';
 import {fetchRates} from '../../store/api-actions';
-import {ValuteCodes, DEFAULT_CURRENCY, API_KEY} from '../../const';
-import { generateApiParams, currencyConversation } from '../../utils';
+import {ValuteCodes, DEFAULT_CURRENCY, API_KEY, DEFAULT_AVALIABLE_CYRRENCY, DEFAULT_PURCHASED_CYRRENCY, RATES_AVALIABLE_DAYS } from '../../const';
+import { generateApiParams, currencyConversation} from '../../utils';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const AVALIABLE_MONEY_INPUT_NAME = 'available-money';
 const AVALIABLE_CURRENCY_INPUT_NAME = 'purchased-currency';
-const DEFAULT_AVALIABLE_CYRRENCY = 'RUB';
-const DEFAULT_PURCHASED_CYRRENCY = 'USD';
+
 
 function Converter() {
   const calenderEndDate = new Date();
-  const calenderStartDate = new Date().setDate(calenderEndDate.getDate()-6);//не надо  - будет отталкиваться от календаря
+  const calenderStartDate = new Date().setDate(calenderEndDate.getDate() - RATES_AVALIABLE_DAYS);
   const rates = useSelector(getRates);
   const dispatch = useDispatch();
-
-  /* eslint-disable no-console */
-  console.log('films:',rates);
-  if(rates.date){
-    console.log('films-date:',new Date(rates.date).getDate());
-  }
-  /* eslint-enable no-console */
 
   const [money, setMoney] = useState({
     date: new Date(),
     avaliableMoney: 0,
     purchasedMoney: 0,
     avaliableCurrency: DEFAULT_AVALIABLE_CYRRENCY,
-    avaliableCurrencyRate: 0,//установить начальные значения
     purchasedCurrency: DEFAULT_PURCHASED_CYRRENCY,
-    purchasedCurrencyRate: 0,//установить начальные значения
   });
 
   const handleCurrencyChange = ({target}) => {
@@ -44,15 +34,13 @@ function Converter() {
       setMoney({
         ...money,
         purchasedCurrency: target.value,
-        purchasedCurrencyRate: rates[target.value],
-        purchasedMoney: currencyConversation(money.avaliableMoney,money.avaliableCurrencyRate,rates[target.value]),
+        purchasedMoney: currencyConversation(money.avaliableMoney,rates[money.avaliableCurrency],rates[target.value]),
       });
     } else {
       setMoney({
         ...money,
         avaliableCurrency: target.value,
-        avaliableCurrencyRate: rates[target.value],
-        avaliableMoney: currencyConversation(money.purchasedMoney, money.purchasedCurrencyRate, rates[target.value]),
+        avaliableMoney: currencyConversation(money.purchasedMoney, rates[money.purchasedCurrency], rates[target.value]),
       });
     }
   };
@@ -62,12 +50,12 @@ function Converter() {
       setMoney({
         ...money,
         avaliableMoney: target.value,
-        purchasedMoney: currencyConversation(Number(target.value),money.avaliableCurrencyRate,money.purchasedCurrencyRate),
+        purchasedMoney: currencyConversation(Number(target.value),rates[money.avaliableCurrency],rates[money.purchasedCurrency]),
       });
     } else {
       setMoney({
         ...money,
-        avaliableMoney: currencyConversation(Number(target.value), money.purchasedCurrencyRate, money.avaliableCurrencyRate),
+        avaliableMoney: currencyConversation(Number(target.value), rates[money.purchasedCurrency], rates[money.avaliableCurrency]),
         purchasedMoney: target.value,
       });
     }
@@ -92,8 +80,6 @@ function Converter() {
     dispatch(fetchRates(apiParams));
     setMoney({
       ...money,
-      avaliableCurrencyRate: rates[money.avaliableCurrency],
-      purchasedCurrencyRate: rates[money.purchasedCurrency],
       purchasedMoney: currencyConversation(money.avaliableMoney,rates[money.avaliableCurrency],rates[money.purchasedCurrency]),
       date: date,
     });
@@ -109,7 +95,7 @@ function Converter() {
           <option value="RUB">RUB</option>
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
-          <option value="GBR">GBR</option>
+          <option value="GBP">GBP</option>
           <option value="CNY">CNY</option>
         </select>
       </fieldset>
@@ -120,7 +106,7 @@ function Converter() {
           <option value="RUB">RUB</option>
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
-          <option value="GBR">GBR</option>
+          <option value="GBP">GBP</option>
           <option value="CNY">CNY</option>
         </select>
       </fieldset>
