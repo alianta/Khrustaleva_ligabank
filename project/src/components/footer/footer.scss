@@ -1,0 +1,92 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: $color-gray-1;
+  padding: 50px 98px;
+}
+
+.contacts__address,
+.contacts__license {
+  font-size: 12px;
+  line-height: 17px;
+  margin-bottom: 0;
+}
+
+.contacts__license {
+  margin-top: 0;
+}
+
+.contacts {
+  max-width: 255px;
+}
+
+.nav {
+  margin: 0;
+  padding: 0;
+  max-width: 200px;
+  list-style: none;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.nav__item {
+  padding: 5px 0 4px 0;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: $color-black-1;
+}
+
+.phone {
+  position: relative;
+  max-width: 170px;
+  box-sizing: border-box;
+
+  &::before {
+    position: absolute;
+    content: "";
+    top: 10px;
+    left: -28px;
+  }
+
+  &--mobile {
+    margin-left: 26px;
+    padding-top: 8px;
+
+    &::before {
+      width: 10px;
+      height: 16px;
+      background-image: url(../../assets/img/phone-mobile.svg);
+    }
+  }
+
+  &--office {
+    padding-left: 33px;
+    padding-top: 8px;
+    max-width: 155px;
+
+    &::before {
+      width: 16px;
+      height: 16px;
+      left: -2px;
+      background-image: url(../../assets/img/phone-office.svg);
+    }
+  }
+}
+
+.phone__link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  color: $color-black-1;
+}
+
+.phone__text {
+  font-size: 12px;
+  line-height: 17px;
+  color: $color-gray-5;
+  margin: 0;
+}

@@ -1,0 +1,23 @@
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding-left: 42px;
+  margin-right: auto;
+  max-width: 680px;
+}
+
+.main-nav__item {
+  padding: 14px 10px 14px 14px;
+}
+
+.main-nav__link {
+  color: $color-black-1;
+  text-decoration: none;
+
+  &--current {
+    color: $color-blue-1;
+  }
+}
