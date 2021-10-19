@@ -6,6 +6,8 @@ import {createAPI} from './services/api';
 import {configureStore} from '@reduxjs/toolkit';
 import rootReducer from './store/root-reduser';
 import {fetchRates} from './store/api-actions';
+import {ValuteCodes, DEFAULT_CURRENCY, API_KEY} from './const';
+import { generateApiParams } from './utils';
 
 const api = createAPI();
 
@@ -18,8 +20,8 @@ const store = configureStore({
       },
     }),
 });
-
-store.dispatch(fetchRates());
+const apiParams = generateApiParams(new Date(),DEFAULT_CURRENCY,ValuteCodes.join(),API_KEY);
+store.dispatch(fetchRates(apiParams));
 
 ReactDOM.render(
   <React.StrictMode>

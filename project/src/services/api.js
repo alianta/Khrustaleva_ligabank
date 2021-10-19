@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const BACKEND_URL = 'https://www.cbr-xml-daily.ru/daily_json.js';
+const BACKEND_URL = 'https://openexchangerates.org/api/historical';
 const REQUEST_TIMEOUT = 5000;
 
-export const createAPI = (onUnauthorized) => {
+export const createAPI = () => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
